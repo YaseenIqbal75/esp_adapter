@@ -1,0 +1,6 @@
+# .rubocop.yml
+
+inherit_from:
+  - .rubocop_airbnb.yml
+AllCops:
+    NewCops: enable
