@@ -28,8 +28,9 @@ Gem::Specification.new do |spec|
 
   # Dependencies
   spec.add_dependency 'rake', '~> 13.0', '>= 11.2.2'
-  spec.add_dependency 'rspec', '~> 3.13'
-  spec.add_dependency 'rubocop-airbnb', '~> 6.0'
+  spec.add_dependency 'rubocop-airbnb', '~> 3.0.2'
+  # Development dependencies
+  spec.add_development_dependency 'rspec', '~> 3.13'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

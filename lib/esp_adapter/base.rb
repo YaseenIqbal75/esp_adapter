@@ -5,6 +5,9 @@ module EspAdapter
   # Base class for ESP adapters.
   # This class defines common functionalities and serves as a foundation
   # for specific ESP adapter implementations.
+
+  Dir[File.join(__dir__, 'errors', '*.rb')].each { |file| require file }
+
   class Base
     def initialize(api_key)
       @api_key = api_key
@@ -26,7 +29,7 @@ module EspAdapter
 
     def handle_errors
       yield
-    rescue *ExpectedErrors => e
+    rescue StandardError => e
       # log errror
       raise CustomError, "An error has occurred while performing action: #{e.message}"
     end

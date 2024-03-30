@@ -2,6 +2,4 @@
 
 require_relative 'esp_adapter/version'
 
-module EspAdapter
-  class Error < StandardError; end
-end
+module EspAdapter end
