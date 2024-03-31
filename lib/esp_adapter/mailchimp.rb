@@ -6,8 +6,8 @@ require 'MailchimpMarketing'
 
 module EspAdapter
   class Mailchimp < Base
-    MAXIMUM_RETRIES_COUNT = 3
-    RETRY_DELAY_TIME = 5
+    MAXIMUM_RETRIES_COUNT = 1
+    RETRY_DELAY_TIME = 2
     def initialize(api_key)
       super(api_key)
       # Initialize the Mailchimp API client
@@ -18,7 +18,7 @@ module EspAdapter
     def lists
       handle_errors do
         response = @client.lists.get_all_lists
-        response['lists'].map { |list| list['name'] }
+        response['lists'].map { |list| list['name'] } if response.present?
       end
     end
 
@@ -43,9 +43,7 @@ module EspAdapter
         yield
       rescue MailchimpMarketing::ApiError => e
         attempts += 1
-        # Rate limit exceeded - raise a custom error with a message and status
         if attempts <= MAXIMUM_RETRIES_COUNT && e.status == 408
-          puts "attempt - #{attempts}"
           sleep RETRY_DELAY_TIME
           retry
         else
@@ -54,11 +52,9 @@ module EspAdapter
             status: e.status,
           }
         end
-      rescue StandardError
-        # Read timeout - raise a custom error with a message and status 500
+      rescue StandardError => e
         attempts += 1
         if attempts <= MAXIMUM_RETRIES_COUNT && e&.is_a?(Net::ReadTimeout)
-          puts "attempt - #{attempts}"
           sleep RETRY_DELAY_TIME
           retry
         else

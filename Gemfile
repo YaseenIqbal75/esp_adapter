@@ -10,3 +10,4 @@ gem 'MailchimpMarketing', :git => 'https://github.com/mailchimp/mailchimp-market
 gem 'rubocop-airbnb', '~> 3.0', '>= 3.0.2'
 gem 'rspec', '~> 3.13'
 gem 'pry'
+gem 'simplecov', require: false, group: :test

@@ -3,7 +3,7 @@
 # lib/esp_adapter/base.rb
 module EspAdapter
   # Base class for ESP adapters.
-  
+
   Dir[File.join(__dir__, 'errors', '*.rb')].each { |file| require file }
 
   class Base
