@@ -44,7 +44,7 @@ module EspAdapter
       rescue MailchimpMarketing::ApiError => e
         attempts += 1
         # Rate limit exceeded - raise a custom error with a message and status
-        if attempts <= MAXIMUM_RETRIES_COUNT && e.status == 429
+        if attempts <= MAXIMUM_RETRIES_COUNT && e.status == 408
           puts "attempt - #{attempts}"
           sleep RETRY_DELAY_TIME
           retry
