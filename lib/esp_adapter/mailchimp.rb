@@ -22,6 +22,7 @@ module EspAdapter
       end
     end
 
+    # Returns metrics for a particular newsletter in Mailchimp
     def list_metrics(list_id)
       handle_errors do
         stats = @client.lists.get_list(list_id)['stats']
@@ -36,7 +37,7 @@ module EspAdapter
 
     private
 
-    # Handle Mailchimp API errors and retry failed requests - if necessary
+    # Handle resiliency
     def handle_errors
       attempts = 0
       begin

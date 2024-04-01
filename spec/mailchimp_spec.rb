@@ -4,7 +4,7 @@ require 'pry'
 require 'net/http'
 
 RSpec.describe EspAdapter::Mailchimp do
-  let(:api_key) { '79bf390c0e16020d7b18d7fe5dd60a55-us18' }
+  let(:api_key) { api_key }
   let(:mailchimp_instance) { EspAdapter::Mailchimp.new(api_key) }
 
   describe '#lists' do
@@ -86,7 +86,7 @@ RSpec.describe EspAdapter::Mailchimp do
   end
 
   describe '#list_metrics' do
-    let(:list_id) { 'd5670bfc6c' }
+    let(:list_id) { list_id }
 
     context 'when API call succeed' do
       it 'returns metrics for a particular list in Mailchimp' do
@@ -280,11 +280,8 @@ RSpec.describe EspAdapter::Mailchimp do
   end
 
   describe '#handle_errors' do
-    let(:maximum_retries_count) { 1 }
-    let(:retry_delay_time) { 2 }
-
-    context 'when MailchimpMarketing::ApiError with status 408 is raised' do
-      it 'retries on Mailchimp API error with status 408' do
+    context 'when MailchimpMarketing::ApiError is raised' do
+      it 'retries an error with status 408' do
         # Arrange
         allow_any_instance_of
         MailchimpMarketing::Client.
